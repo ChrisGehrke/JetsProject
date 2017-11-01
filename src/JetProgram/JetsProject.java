@@ -3,55 +3,56 @@ package JetProgram;
 import java.util.Scanner;
 
 public class JetsProject {
-
-	static EnterJetInfo custom = new EnterJetInfo();
-	static int num = 0;
+	static Hangar hangar = new Hangar();
 	static Scanner kb = new Scanner(System.in);
+	private String model;
+	private int speed;
+	private int range;
+	private long price;
 
 	public static void main(String[] args) {
-		printOptionsMenu();
-		System.out.println("Please select a number from the menu:");
-		num = kb.nextInt();
-		
+		int menu = 0;
+		do {
+			printOptionsMenu();
+			System.out.println("Please select a number from the menu:");
+			menu = kb.nextInt();
 
-		if (num == 1) {
-			printJetMenu();
+			switch (menu) {
+			case 1:
+				hangar.printJets();
+				break;
+			case 2:
+				System.out.println("The fastest jet is: " + hangar.fastestJet() + "\n");
+				break;
+			case 3:
+				System.out.println("The jet with the longest range is: " + hangar.longestRange() + "\n");
+				break;
+			case 4:
+				String model;
+				int speed;
+				int range;
+				long price;
+				System.out.print("\n");
+				System.out.print("Enter the Model of jet: ");
+				model = kb.next();
+				System.out.print("Enter the Speed of jet in mph: ");
+				speed = kb.nextInt();
+				System.out.print("Enter the Range of jet: ");
+				range = kb.nextInt();
+				System.out.print("Enter the Price of jet:$ ");
+				price = kb.nextLong();
+				System.out.print("");
 
-			int input = 0;
-			System.out.println("Please select a Jet you want to see:");
-			input = kb.nextInt();
-
-			if (input == 1) {
-				F35 f = new F35();
-			} else if (input == 2) {
-				F15 f1 = new F15();
-			} else if (input == 3) {
-				F22 f22 = new F22();
-			} else if (input == 4) {
-				F18 f18 = new F18();
-			} else if (input == 5) {
-				SR71 sr71 = new SR71();
-			} else if (input == 6) {
-
+				JetsProject jet = new JetsProject(model, speed, range, price);
+				hangar.addJetToMenu(jet);
+				break;
+			case 5:
+				System.out.println("Good Bye");
+				break;
 			}
+		} while (menu != 5);
 
-			else if (num == 2) {
-				SR71 sr71 = new SR71();
-			} else if (num == 3) {
-				F15 f15 = new F15();
-			} else if (num == 4) {
-				custom.getModel();
-				
-				custom.getSpeed();
-				custom.getRange();
-				custom.getPrice();
-			} else if (num == 5) {
-				System.exit(0);
-			}
-		}
 	}
-
-	
 
 	public static void printOptionsMenu() {
 		System.out.println("---------------------------------");
@@ -64,19 +65,63 @@ public class JetsProject {
 
 	}
 
-	public static void printJetMenu() {
-		System.out.println("---------------------------------");
-		System.out.println("|(1) F-35A Lightning II --------|");
-		System.out.println("|(2) F-15 Eagle ----------------|");
-		System.out.println("|(3) F-22 Raptor ---------------|");
-		System.out.println("|(4) F-18 Hornet ---------------|");
-		System.out.println("|(5) SR-71 Blackbird------------|");
-		System.out.println("|(6) New Jet ---------|");
-		System.out.println("---------------------------------");
-	}
-
 	public JetsProject() {
 
+	}
+
+	public JetsProject(String model, int speed, int range, long price) {
+		super();
+		this.model = model;
+		this.speed = speed;
+		this.range = range;
+		this.price = price;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("JetsProject [model=");
+		builder.append(model);
+		builder.append(", speed=");
+		builder.append(speed);
+		builder.append(", range=");
+		builder.append(range);
+		builder.append(", price=");
+		builder.append(price);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
